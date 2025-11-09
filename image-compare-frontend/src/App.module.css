@@ -1,0 +1,38 @@
+.app {
+  background-color: #f9f9f9;
+  color: #000;
+  min-height: 100vh;
+  font-family: "Courier New", monospace;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.home {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+.title {
+  font-size: 2rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+  display: inline-block;
+  padding-bottom: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.note {
+  font-style: italic;
+  color: #555;
+}

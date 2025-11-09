@@ -1,0 +1,55 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border-bottom: 2px solid #000;
+  font-family: "Courier New", monospace;
+  cursor: pointer;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.link {
+  color: #000;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: all 0.2s ease;
+}
+
+.link:hover::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  left: 0;
+  bottom: 0;
+  background-color: #000;
+  animation: underline 0.3s ease forwards;
+}
+
+.active {
+  border-bottom: 1px solid #000;
+  font-weight: bold;
+}
+
+@keyframes underline {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}

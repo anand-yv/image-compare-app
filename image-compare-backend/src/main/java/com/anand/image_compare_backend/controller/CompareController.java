@@ -4,7 +4,6 @@ import com.anand.image_compare_backend.config.AwsConfig;
 import com.anand.image_compare_backend.dto.ApiResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +24,6 @@ public class CompareController {
     private static final Logger log = LogManager.getLogger(CompareController.class);
     private final RekognitionClient rekognitionClient = AwsConfig.rekognitionClient();
 
-//    public CompareController(RekognitionClient rekognitionClient) {
-//        this.rekognitionClient = rekognitionClient;
-//    }
-
     // POST: /api/compare
     @PostMapping(value = "/compare", consumes = "multipart/form-data")
     public ResponseEntity<?> compare(@RequestParam("image1") MultipartFile sourceImage,
@@ -43,8 +38,6 @@ public class CompareController {
         SdkBytes sourceImageBytes = null;
         SdkBytes targetImageBytes = null;
         try {
-            System.out.println(Arrays.toString(sourceImage.getBytes()));
-            System.out.println(Arrays.toString(targetImage.getBytes()));
             sourceImageBytes = SdkBytes.fromByteArray(sourceImage.getBytes());
             targetImageBytes = SdkBytes.fromByteArray(targetImage.getBytes());
         } catch (Exception e) {
