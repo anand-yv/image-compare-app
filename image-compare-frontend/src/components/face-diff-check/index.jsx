@@ -11,7 +11,7 @@ export default function FaceDiffCheck() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    const backendBase = import.meta.env.VITE_API_BASE_URL ?? "";
+    // const backendBase = import.meta.env.VITE_API_BASE_URL ?? "";
 
 
     useEffect(() => {
@@ -64,15 +64,15 @@ export default function FaceDiffCheck() {
         formData.append("image2", image2);
 
         // assemble URL: if backendBase provided, prefix it (no double slash)
-        const url =
-            backendBase.trim().replace(/\/+$/, "") + (backendBase ? "/api/compare" : "/api/compare");
+        // const url =
+        //     backendBase.trim().replace(/\/+$/, "") + (backendBase ? "/api/compare" : "/api/compare");
 
         try {
             setLoading(true);
             setError(null);
             setPercentage(null);
 
-            const res = await axios.post(url, formData, {
+            const res = await axios.post("/api/compare", formData, {
                 headers: { "Content-Type": "multipart/form-data" },
                 timeout: 30000, // 30s timeout - adjust as needed
             });
