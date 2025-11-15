@@ -77,3 +77,21 @@ input[type="file"] {
 .result span {
   font-weight: bold;
 }
+
+/* error box */
+.error {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e00;
+  background-color: #ffecec;
+  color: #900;
+  display: inline-block;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+/* slight tweak so disabled buttons look disabled */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
