@@ -30,7 +30,7 @@ function sanitizeHeaders(origHeaders, targetHost) {
     ];
     for (const h of hopByHop) delete headers[h];
     delete headers["content-length"];
-    // optionally: delete headers["accept-encoding"];
+    delete headers["accept-encoding"];
     if (targetHost) headers.host = targetHost;
     return headers;
 }
