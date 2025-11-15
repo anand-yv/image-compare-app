@@ -1,47 +1,35 @@
-const BACKEND_URL = process.env.VITE_API_BASE_URL;
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+};
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
+    if (req.method !== "POST") {
+        return res.status(405).json({ message: "Method Not Allowed" });
+    }
+
+    const backendUrl = process.env.VITE_API_BASE_URL + "/api/compare";
+
     try {
-        if (!BACKEND_URL) {
-            res.statusCode = 500;
-            return res.end("BACKEND_URL not set");
-        }
-
-        // Collect raw request body (multipart)
-        const chunks = [];
-        for await (const chunk of req) chunks.push(chunk);
-        const rawBody = Buffer.concat(chunks);
-
-        // Remove host header
-        // prepare headers (remove host and content-length)
+        // Copy headers except content-length and host
         const headers = { ...req.headers };
-        delete headers.host;
-        delete headers['content-length'];
-        delete headers['transfer-encoding']; // safe to remove too
+        delete headers["content-length"];
+        delete headers["host"];
+        delete headers["transfer-encoding"];
 
-
-        // Forward request to backend
-        const response = await fetch(`${BACKEND_URL}/api/compare`, {
+        // Forward raw request body as-is
+        const response = await fetch(backendUrl, {
             method: "POST",
             headers,
-            body: rawBody
+            body: req, // IMPORTANT → raw stream, not parsed
         });
 
-        // Forward backend status
-        res.statusCode = response.status;
+        const data = await response.text();
 
-        // Forward backend headers
-        response.headers.forEach((value, key) => {
-            res.setHeader(key, value);
-        });
-
-        // Forward backend body
-        const buffer = Buffer.from(await response.arrayBuffer());
-        res.end(buffer);
-
+        res.status(response.status).send(data);
     } catch (err) {
         console.error("Proxy error:", err);
-        res.statusCode = 500;
-        res.end("Proxy Error: " + err.message);
+        res.status(500).json({ message: "Proxy error", error: err.toString() });
     }
-};
+}
