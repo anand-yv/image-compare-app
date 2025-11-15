@@ -13,8 +13,12 @@ module.exports = async (req, res) => {
         const rawBody = Buffer.concat(chunks);
 
         // Remove host header
+        // prepare headers (remove host and content-length)
         const headers = { ...req.headers };
         delete headers.host;
+        delete headers['content-length'];
+        delete headers['transfer-encoding']; // safe to remove too
+
 
         // Forward request to backend
         const response = await fetch(`${BACKEND_URL}/api/compare`, {
