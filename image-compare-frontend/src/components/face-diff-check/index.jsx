@@ -11,7 +11,6 @@ export default function FaceDiffCheck() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // const backendBase = import.meta.env.VITE_API_BASE_URL ?? "";
 
 
     useEffect(() => {
